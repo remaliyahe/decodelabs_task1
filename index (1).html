@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cipher Disk — Basic Encryption &amp; Decryption</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Project 02 — Data Protection Basics</p>
+  <h1>Turn plain words<br>into <em>brass and cipher.</em></h1>
+  <p class="lede">A working Caesar cipher: rotate the inner disk by a shift key to encrypt your message, then rotate it back to recover the original. Everything below updates live.</p>
+
+  <div class="stage">
+    <!-- SIGNATURE: rotating cipher disk -->
+    <div class="wheel-panel">
+      <svg id="wheelSvg" viewBox="0 0 300 300">
+        <circle cx="150" cy="150" r="144" fill="none" stroke="var(--line)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="118" fill="none" stroke="var(--line)" stroke-width="1"/>
+        <g id="outerRing"></g>
+        <circle cx="150" cy="150" r="86" fill="var(--slate)" stroke="var(--brass)" stroke-width="1"/>
+        <g id="innerRotor" class="rotor"></g>
+        <polygon class="pointer" points="150,28 144,44 156,44"/>
+        <circle class="hub-ring" cx="150" cy="150" r="14"/>
+        <circle class="hub" cx="150" cy="150" r="4"/>
+      </svg>
+      <p class="wheel-caption">shift key <b id="wheelShiftLabel">3</b> — outer ring is plain text, inner disk is cipher text</p>
+    </div>
+
+    <div class="controls">
+      <div class="panel">
+        <label for="plainInput">Plain text</label>
+        <textarea id="plainInput" placeholder="Type the message you want to encrypt…">Meet me at the north gate</textarea>
+
+        <div class="shift-row">
+          <label for="shiftRange" style="margin:0;">Shift key</label>
+          <input type="range" id="shiftRange" min="1" max="25" value="3">
+          <span class="shift-value" id="shiftValue">3</span>
+        </div>
+      </div>
+
+      <div class="outputs">
+        <div class="output-card">
+          <div class="tag lock"><span class="dot"></span>Encrypted output</div>
+          <div class="output-text" id="encryptedOut"></div>
+        </div>
+        <div class="output-card">
+          <div class="tag unlock"><span class="dot"></span>Decrypted output</div>
+          <div class="output-text" id="decryptedOut"></div>
+          <div class="verify" id="verifyRow"><span class="dot"></span><span id="verifyText">Matches original</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">Decrypt a message someone sent you</div>
+
+  <div class="panel">
+    <label for="cipherInput">Cipher text to decrypt (uses the same shift key above)</label>
+    <input type="text" id="cipherInput" placeholder="Paste encrypted text here…">
+    <div class="outputs" style="grid-template-columns:1fr; margin-top:16px;">
+      <div class="output-card">
+        <div class="tag unlock"><span class="dot"></span>Recovered plain text</div>
+        <div class="output-text empty" id="recoveredOut">Nothing to decrypt yet</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Caesar Cipher · shift-substitution encryption</span>
+    <span>Non-letter characters pass through unchanged</span>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
